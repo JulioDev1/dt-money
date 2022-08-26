@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-top: -10rem;
+  margin-top: -5rem;
   div {
     background: var(--shape);
     padding: 1.5rem 2rem;
@@ -16,7 +16,7 @@ export const Container = styled.div`
       justify-content: space-between;
     }
     strong {
-      display:block
+      display: block;
       margin-top: 1rem;
       font-size: 2rem;
       font-weight: 500;
