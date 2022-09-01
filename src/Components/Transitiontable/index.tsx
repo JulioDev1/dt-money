@@ -1,5 +1,23 @@
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 import { Container } from "./styled";
+
+interface Transaction {
+  id: number;
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  createdAt: string;
+}
 export function Transitiontable() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  useEffect(() => {
+    api
+      .get("transactions")
+      .then((response) => setTransactions(response.data.transactions));
+  }, []);
+
   return (
     <Container>
       <table>
@@ -12,24 +30,23 @@ export function Transitiontable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimentos de Software</td>
-            <td>R$1200</td>
-            <td>Desenvolvimento</td>
-            <td>20/09/2021</td>
-          </tr>
-          <tr>
-            <td>Desenvolvimentos de Software</td>
-            <td>R$1200</td>
-            <td>Desenvolvimento</td>
-            <td>20/09/2021</td>
-          </tr>
-          <tr>
-            <td>Desenvolvimentos de Software</td>
-            <td>R$1200</td>
-            <td>Desenvolvimento</td>
-            <td>20/09/2021</td>
-          </tr>
+          {transactions.map((transaction) => (
+            <tr>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>
+                {new Intl.NumberFormat("PT-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(transaction.amount)}
+              </td>
+              <td>{transaction.category}</td>
+              <td>
+                {new Intl.DateTimeFormat("PT-BR").format(
+                  new Date(transaction.createdAt)
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>

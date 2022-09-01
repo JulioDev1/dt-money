@@ -2,6 +2,7 @@ import { Container } from "./styled";
 import incomeIng from "../../assets/income.svg";
 import outCome from "../../assets/outcome.svg";
 import total from "../../assets/total.svg";
+
 export function Summary() {
   return (
     <Container>
